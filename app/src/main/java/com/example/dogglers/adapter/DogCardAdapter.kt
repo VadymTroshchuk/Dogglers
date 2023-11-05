@@ -20,6 +20,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dogglers.R
 import com.example.dogglers.const.Layout
@@ -43,9 +44,9 @@ class DogCardAdapter(
      */
     class DogCardViewHolder(view: View?): RecyclerView.ViewHolder(view!!) {
       val dogImage : ImageView = view!!.findViewById(/* id = */ R.id.dog_image)
-        val dogName : ImageView = view!!.findViewById(/* id = */ R.id.dog_name)
-        val dogAge : ImageView = view!!.findViewById(/* id = */ R.id.dog_age)
-        val dogHobby : ImageView = view!!.findViewById(/* id = */ R.id.dog_hobby)
+        val dogName : TextView = view!!.findViewById(/* id = */ R.id.dog_name)
+        val dogAge : TextView = view!!.findViewById(/* id = */ R.id.dog_age)
+        val dogHobby : TextView = view!!.findViewById(/* id = */ R.id.dog_hobby)
 
 
     }
@@ -78,14 +79,17 @@ class DogCardAdapter(
     override fun getItemCount(): Int = data.size //
 
     override fun onBindViewHolder(holder: DogCardViewHolder, position: Int) {
-        // TODO: Get the data at the current position
-        // TODO: Set the image resource for the current dog
-        // TODO: Set the text for the current dog's name
-        // TODO: Set the text for the current dog's age
+
         val resources = context?.resources
-        // TODO: Set the text for the current dog's hobbies by passing the hobbies to the
-        //  R.string.dog_hobbies string constant.
-        //  Passing an argument to the string resource looks like:
-        //  resources?.getString(R.string.dog_hobbies, dog.hobbies)
+
+        val dogItem = data[position]
+
+        holder.dogImage.setImageResource(dogItem.imageResourceId)
+        holder.dogName?.text = dogItem.name
+
+        holder.dogAge.text = resources?.getString(R.string.dog_age , dogItem.age)
+        holder.dogHobby.text =  resources?.getString(R.string.dog_hobbies, dogItem.hobbies)
+
+
     }
 }
